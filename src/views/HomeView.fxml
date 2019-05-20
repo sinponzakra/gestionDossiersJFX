@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="mBorder" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="633.0" prefWidth="1420.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox fx:id="mTopBar" alignment="TOP_RIGHT" prefHeight="26.0" prefWidth="611.0" style="-fx-background-color: #e0e0eb;">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="#170990" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion Des Dossiers" textAlignment="CENTER" wrappingWidth="136.02880859375">
+                     <font>
+                        <Font name="System Italic" size="13.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="6.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="headerText" strokeType="OUTSIDE" strokeWidth="0.0" text="Acceuil" textAlignment="CENTER" wrappingWidth="166.13671875">
+                     <HBox.margin>
+                        <Insets left="550.0" top="8.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <Region prefHeight="30.0" prefWidth="516.0" HBox.hgrow="ALWAYS" />
+                  <ImageView fx:id="minBarBtn" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/substract.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="maxBarBtn" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/combine.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="20.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="exitBarBtn" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/multiply.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets right="10.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="523.0" prefWidth="133.0">
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <JFXButton fx:id="btnAcceuil" buttonType="RAISED" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="100.0" ripplerFill="RED" text="Acceuil">
+                     <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/homepage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Separator prefWidth="200.0" />
+                  <JFXButton fx:id="btnDossiers" buttonType="RAISED" layoutX="10.0" layoutY="13.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="138.0" ripplerFill="RED" text="G.Dossiers">
+                     <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/folder.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Separator prefWidth="200.0" />
+                  <JFXButton fx:id="btnAcquereurs" buttonType="RAISED" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="100.0" ripplerFill="RED" text="G.Acquereurs">
+                     <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/customer.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Separator prefWidth="200.0" />
+                  <JFXButton fx:id="btnVendeur" buttonType="RAISED" layoutX="10.0" layoutY="35.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="100.0" ripplerFill="RED" text="G.Vendeurs">
+                     <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/estate-agent.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Separator prefWidth="200.0" />
+                  <JFXButton fx:id="btnBiens" buttonType="RAISED" layoutX="10.0" layoutY="326.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="100.0" ripplerFill="RED" text="G.Biens">
+                     <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/house.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Separator prefWidth="200.0" />
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+         </children>
+      </HBox>
+   </left>
+   <bottom>
+      <HBox style="-fx-background-color: #e0e0eb;" BorderPane.alignment="CENTER">
+         <children>
+            <Region HBox.hgrow="ALWAYS" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="© Ouadia CHAKIR - 2019. Tout droit réservé." />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox fx:id="mCenter">
+         <children>
+            <PieChart fx:id="mChart" nodeOrientation="LEFT_TO_RIGHT" title="Etat Des Dossiers" />
+            <Region VBox.vgrow="ALWAYS" />
+            <HBox alignment="CENTER" prefWidth="1022.0" spacing="10.0">
+               <children>
+                  <VBox fx:id="dossiersTicket" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #e6e6e6; -fx-cursor: hand; -fx-background-radius: 2em;">
+                     <children>
+                        <HBox alignment="CENTER" style="-fx-background-color: #cc8800; -fx-background-radius: 3em;">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Nombre des Dossiers" />
+                           </children>
+                        </HBox>
+                        <StackPane styleClass="tickets">
+                           <children>
+                              <Circle fill="DODGERBLUE" radius="70.0" stroke="#cc8800" strokeType="INSIDE" strokeWidth="11.0" style="-fx-fill: transparent;">
+                                 <StackPane.margin>
+                                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                 </StackPane.margin>
+                              </Circle>
+                              <Text fx:id="DossiersCount" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.5em; -fx-font-weight: bolder; -fx-fill: #cc8800;" text="10" />
+                           </children>
+                        </StackPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="7.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox fx:id="AcquereursTicket" alignment="CENTER" layoutX="20.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #e6e6e6; -fx-cursor: hand; -fx-background-radius: 2em;">
+                     <children>
+                        <HBox alignment="CENTER" style="-fx-background-color: #009999; -fx-background-radius: 3em;" styleClass="headerTickets">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Nombre des Acquereurs" />
+                           </children>
+                        </HBox>
+                        <StackPane styleClass="tickets">
+                           <children>
+                              <Circle fill="DODGERBLUE" radius="70.0" stroke="#009999" strokeType="INSIDE" strokeWidth="11.0" style="-fx-fill: transparent;">
+                                 <StackPane.margin>
+                                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                 </StackPane.margin>
+                              </Circle>
+                              <Text fx:id="AcquereursCount" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.5em; -fx-font-weight: bolder; -fx-fill: #009999;" text="10" />
+                           </children>
+                        </StackPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox fx:id="vendeursTicket" alignment="CENTER" layoutX="240.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #e6e6e6; -fx-cursor: hand; -fx-background-radius: 2em;">
+                     <children>
+                        <HBox alignment="CENTER" style="-fx-background-color: #1a000d; -fx-background-radius: 3em;" styleClass="headerTickets">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Text stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Nombre des Vendeurs" />
+                           </children>
+                        </HBox>
+                        <StackPane styleClass="tickets">
+                           <children>
+                              <Circle fill="DODGERBLUE" radius="70.0" stroke="#1a000d" strokeType="INSIDE" strokeWidth="11.0" style="-fx-fill: transparent;">
+                                 <StackPane.margin>
+                                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                 </StackPane.margin>
+                              </Circle>
+                              <Text fx:id="VendeursCount" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.5em; -fx-font-weight: bolder; -fx-fill: #1a000d;" text="10" />
+                           </children>
+                        </StackPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox fx:id="BiensTicket" alignment="CENTER" layoutX="532.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" style="-fx-background-color: #e6e6e6; -fx-cursor: hand; -fx-background-radius: 2em;">
+                     <children>
+                        <HBox alignment="CENTER" style="-fx-background-color: #e60000; -fx-background-radius: 3em;" styleClass="headerTickets">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <children>
+                              <Text stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Nombre des Biens" />
+                           </children>
+                        </HBox>
+                        <StackPane styleClass="tickets">
+                           <children>
+                              <Circle fill="DODGERBLUE" radius="70.0" stroke="#e60000" strokeType="INSIDE" strokeWidth="11.0" style="-fx-fill: transparent;">
+                                 <StackPane.margin>
+                                    <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                                 </StackPane.margin>
+                              </Circle>
+                              <Text fx:id="biensCount" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.5em; -fx-font-weight: bolder; -fx-fill: #e60000;" text="10" />
+                           </children>
+                        </StackPane>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
