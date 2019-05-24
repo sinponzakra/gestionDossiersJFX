@@ -107,7 +107,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Separator prefWidth="200.0" />
+                  <Separator fx:id="sep1" prefWidth="200.0" />
                   <JFXButton fx:id="btnVendeur" buttonType="RAISED" layoutX="10.0" layoutY="35.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="100.0" ripplerFill="RED" text="G.Vendeurs">
                      <graphic>
                         <ImageView fitHeight="42.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
@@ -117,7 +117,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Separator prefWidth="200.0" />
+                  <Separator fx:id="sep2" prefWidth="200.0" />
                   <JFXButton fx:id="btnBiens" buttonType="RAISED" layoutX="10.0" layoutY="326.0" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="100.0" ripplerFill="RED" text="G.Biens">
                      <graphic>
                         <ImageView fitHeight="42.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
@@ -127,7 +127,30 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <Separator prefWidth="200.0" />
+                  <Separator fx:id="sep3" prefWidth="200.0" />
+                  <JFXButton fx:id="btnComptes" buttonType="RAISED" maxWidth="1.7976931348623157E308" prefHeight="63.0" prefWidth="100.0" ripplerFill="RED" text="G.Comptes">
+                     <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/account.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Separator fx:id="sep4" prefWidth="200.0" />
+                  <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <JFXButton fx:id="logOut" alignment="CENTER" buttonType="RAISED" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="136.0" ripplerFill="#da2222" text="admin " textAlignment="CENTER" wrapText="true">
+                     <graphic>
+                        <ImageView fitHeight="59.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/arrow.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Arial Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -156,7 +179,7 @@
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Nombre des Dossiers" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Dossiers" />
                            </children>
                         </HBox>
                         <StackPane styleClass="tickets">
@@ -181,7 +204,7 @@
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Nombre des Acquereurs" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Acquereurs" />
                            </children>
                         </HBox>
                         <StackPane styleClass="tickets">
@@ -206,7 +229,7 @@
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                            <children>
-                              <Text stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Nombre des Vendeurs" />
+                              <Text stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Vendeurs" />
                            </children>
                         </HBox>
                         <StackPane styleClass="tickets">
@@ -231,7 +254,7 @@
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>
                            <children>
-                              <Text stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Nombre des Biens" />
+                              <Text stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.6em; -fx-fill: white;" text="Biens" />
                            </children>
                         </HBox>
                         <StackPane styleClass="tickets">

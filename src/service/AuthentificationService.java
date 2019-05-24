@@ -116,5 +116,42 @@ public class AuthentificationService implements Idao<Authentification>{
         }
     }
     
+    public Authentification CheckLogin(String user){
+         Authentification p = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            p = (Authentification) session.createQuery("SELECT a FROM Authentification a WHERE a.user = :user  ").setParameter("user", user).uniqueResult();
+            tx.commit();
+            session.close();
+            return p;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            session.close();
+            return p;
+        }
+    }
+    
+     public Authentification CheckEmail(String mail){
+         Authentification p = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            p = (Authentification) session.createQuery("SELECT a FROM Authentification a WHERE a.email = :mail  ").setParameter("mail", mail).uniqueResult();
+            tx.commit();
+            session.close();
+            return p;
+        } catch (HibernateException ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            session.close();
+            return p;
+        }
+    }
 }
 

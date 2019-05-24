@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SavepassController">
+   <children>
+      <HBox fx:id="mTopBar" alignment="TOP_RIGHT" layoutX="1.0" prefHeight="24.0" prefWidth="337.0" style="-fx-background-color: #e0e0eb;">
+         <children>
+            <Region HBox.hgrow="ALWAYS" />
+            <ImageView fx:id="minBarBtn" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/substract.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="20.0" top="5.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="exitBarBtn" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/multiply.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="10.0" top="5.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <PasswordField fx:id="txtMdp1" layoutX="53.0" layoutY="85.0" prefHeight="25.0" prefWidth="222.0" />
+      <PasswordField fx:id="txtMdp2" layoutX="54.0" layoutY="158.0" prefHeight="25.0" prefWidth="222.0" />
+      <JFXButton fx:id="valider" buttonType="RAISED" layoutX="122.0" layoutY="206.0" prefHeight="25.0" prefWidth="86.0" style="-fx-background-color: #218dc4;" text="Valider" />
+      <Label layoutX="103.0" layoutY="63.0" text="Nouveau mot de passe" />
+      <Label layoutX="90.0" layoutY="136.0" text="Ressaisissez le mot de passe" />
+      <Label fx:id="mdpError" alignment="CENTER" layoutX="48.0" layoutY="186.0" prefHeight="17.0" prefWidth="222.0" text="Les mots de passes ne sont pas identiques !" textFill="RED" visible="false" />
+   </children>
+</Pane>

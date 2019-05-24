@@ -6,6 +6,7 @@
 package controller;
 
 import Entites.Acquereur;
+import Entites.Authentification;
 import Entites.Dossier;
 import Entites.LeBien;
 import Entites.LeBienPK;
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -46,6 +48,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import service.AcquereurService;
+import service.AuthentificationService;
 import service.DossierService;
 import service.LeBienService;
 import service.VendeurService;
@@ -62,6 +65,7 @@ public class DossierController implements Initializable {
     AcquereurService as = new AcquereurService();
     LeBienService bs = new LeBienService();
     DossierService ds = new DossierService();
+    AuthentificationService ats = new AuthentificationService();
 
     ObservableList<Acquereur> acquereurs = FXCollections.observableArrayList();
     ObservableList<Vendeur> vendeurs = FXCollections.observableArrayList();
@@ -118,6 +122,9 @@ public class DossierController implements Initializable {
 
     @FXML
     private TableColumn<Dossier, String> EtatColumn;
+    
+    @FXML
+    private TableColumn<Dossier, Integer> IdColumn;
 
     @FXML
     private TextField search;
@@ -223,6 +230,8 @@ public class DossierController implements Initializable {
         LebienColumn.setCellValueFactory(new PropertyValueFactory<>("lebien"));
         dateContractColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         EtatColumn.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        IdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        
 
         if (vs.findAll() != null) {
             vendeurs.addAll(vs.findAll());
@@ -289,7 +298,8 @@ public class DossierController implements Initializable {
                 for (Dossier a : ds.findAll()) {
                     if (a.getVendeur().toString().contains(newValue)
                             || a.getAcquereur().toString().contains(newValue)
-                            || a.getLebien().toString().contains(newValue)) {
+                            || a.getLebien().toString().contains(newValue)
+                            || a.getId() == Integer.parseInt(newValue)) {
                         fetchedDossier.add(a);
                     }
                 }
@@ -353,6 +363,17 @@ public class DossierController implements Initializable {
             }
 
         });
+        
+        Preferences userPreferences = Preferences.userRoot();
+        int currentUserId = userPreferences.getInt("currentUserId", 0);
+
+        Authentification currentAuthentification = ats.findById(currentUserId);
+        
+        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")){
+            btnAdd.setVisible(false);
+            btnDelete.setVisible(false);
+            btnUpdate.setVisible(false);
+        }
 
     }
 

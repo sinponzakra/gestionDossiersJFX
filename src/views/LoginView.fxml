@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -36,19 +37,20 @@
             </ImageView>
          </children>
       </HBox>
-      <TextField fx:id="txtPseudo" layoutX="84.0" layoutY="119.0" prefHeight="25.0" prefWidth="187.0" />
-      <PasswordField fx:id="txtMdp" layoutX="84.0" layoutY="181.0" prefHeight="25.0" prefWidth="187.0" />
-      <Hyperlink fx:id="resetMdp" layoutX="49.0" layoutY="218.0" text="Mot de passe oublié ?" />
-      <JFXButton fx:id="login" buttonType="RAISED" layoutX="139.0" layoutY="245.0" prefHeight="35.0" prefWidth="79.0" style="-fx-background-color: #218dc4;" text="Connecter" />
-      <Label layoutX="133.0" layoutY="93.0" text="Nom d'utilisateur" />
-      <Label layoutX="143.0" layoutY="157.0" text="Mot de passe" />
+      <TextField fx:id="txtPseudo" layoutX="49.0" layoutY="97.0" onAction="#onEnter" prefHeight="25.0" prefWidth="222.0" />
+      <PasswordField fx:id="txtMdp" layoutX="49.0" layoutY="169.0" onAction="#onEnter" prefHeight="25.0" prefWidth="222.0" />
+      <Hyperlink fx:id="resetMdp" layoutX="47.0" layoutY="219.0" text="Mot de passe oublié ?" />
+      <JFXButton fx:id="login" buttonType="RAISED" layoutX="105.0" layoutY="252.0" onAction="#onEnter" prefHeight="42.0" prefWidth="108.0" style="-fx-background-color: #218dc4;" text="Connecter" />
+      <Label layoutX="114.0" layoutY="75.0" text="Nom d'utilisateur" />
+      <Label layoutX="124.0" layoutY="148.0" text="Mot de passe" />
       <Separator layoutX="315.0" layoutY="41.0" orientation="VERTICAL" prefHeight="253.0" prefWidth="5.0" />
-      <Label fx:id="pseudoError" layoutX="90.0" layoutY="144.0" text="Ce nom d'utilisateur n'existe pas !" textFill="RED" visible="false" />
-      <Label fx:id="mdpError" layoutX="114.0" layoutY="205.0" text="Mot de passe incorrect !" textFill="RED" visible="false" />
+      <Label fx:id="pseudoError" alignment="CENTER" layoutX="48.0" layoutY="122.0" prefHeight="17.0" prefWidth="222.0" text="Ce nom d'utilisateur n'existe pas !" textFill="RED" visible="false" />
+      <Label fx:id="mdpError" alignment="CENTER" layoutX="48.0" layoutY="194.0" prefHeight="17.0" prefWidth="222.0" text="Mot de passe incorrect !" textFill="RED" visible="false" />
       <ImageView fitHeight="253.0" fitWidth="187.0" layoutX="368.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/logo.png" />
          </image>
       </ImageView>
+      <JFXCheckBox fx:id="rememberMe" checkedColor="#2173bf" layoutX="180.0" layoutY="222.0" prefHeight="17.0" prefWidth="126.0" text="Se souvenir de moi" />
    </children>
 </Pane>

@@ -6,6 +6,7 @@
 package controller;
 
 import Entites.Acquereur;
+import Entites.Authentification;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -20,6 +21,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,6 +43,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import service.AuthentificationService;
 
 /**
  * FXML Controller class
@@ -51,6 +54,7 @@ public class VendeurController implements Initializable {
 
     //Service
     VendeurService vs = new VendeurService();
+    AuthentificationService ats = new AuthentificationService();
 
     //init Lists
     ObservableList<Vendeur> vendeurs = FXCollections.observableArrayList();
@@ -133,6 +137,9 @@ public class VendeurController implements Initializable {
 
     @FXML
     private JFXButton btnUpdate;
+    
+    @FXML
+    private JFXButton btnClear;
 
     @FXML
     private TableView<Vendeur> mTable;
@@ -441,6 +448,18 @@ public class VendeurController implements Initializable {
                 email.setText(item.getEmail());
             }
         });
+        
+        Preferences userPreferences = Preferences.userRoot();
+        int currentUserId = userPreferences.getInt("currentUserId", 0);
+
+        Authentification currentAuthentification = ats.findById(currentUserId);
+        
+        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")){
+            btnAdd.setVisible(false);
+            btnDelete.setVisible(false);
+            btnUpdate.setVisible(false);
+            btnClear.setVisible(false);
+        }
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package Entites;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,28 +16,31 @@ import javax.persistence.Id;
  * @author pc
  */
 @Entity
-public class Authentification {
+public class Authentification implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String user;
     private String password;
     private String profile;
+    private String email;
 
     public Authentification() {
     }
 
-    public Authentification(int id, String user, String password, String profile) {
+    public Authentification(int id, String user, String password, String profile,String email) {
         this.id = id;
         this.user = user;
         this.password = password;
         this.profile = profile;
+        this.email=email;
     }
 
-    public Authentification(String user, String password, String profile) {
+    public Authentification(String user, String password, String profile, String email) {
         this.user = user;
         this.password = password;
         this.profile = profile;
+        this.email=email;
     }
 
     public int getId() {
@@ -50,7 +54,8 @@ public class Authentification {
     public String getUser() {
         return user;
     }
-
+    
+    
     public void setUser(String user) {
         this.user = user;
     }
@@ -70,6 +75,16 @@ public class Authentification {
     public void setProfile(String profile) {
         this.profile = profile;
     }
+    
+    public String getEmail(){
+        return email;
+    }
+    
+    public void setEmail(String email){
+        this.email=email;
+    }
+
+
     
     
     

@@ -6,6 +6,7 @@
 package controller;
 
 import Entites.Acquereur;
+import Entites.Authentification;
 import Entites.LeBien;
 import Entites.LeBienPK;
 import Entites.Vendeur;
@@ -24,6 +25,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,6 +44,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import service.AcquereurService;
+import service.AuthentificationService;
 import service.LeBienService;
 import service.VendeurService;
 
@@ -56,6 +59,7 @@ public class LebienController implements Initializable {
     VendeurService vs = new VendeurService();
     AcquereurService as = new AcquereurService();
     LeBienService bs = new LeBienService();
+    AuthentificationService ats = new AuthentificationService();
 
     ObservableList<Acquereur> acquereurs = FXCollections.observableArrayList();
     ObservableList<Vendeur> vendeurs = FXCollections.observableArrayList();
@@ -453,6 +457,18 @@ public class LebienController implements Initializable {
 
             }
         });
+        
+        Preferences userPreferences = Preferences.userRoot();
+        int currentUserId = userPreferences.getInt("currentUserId", 0);
+
+        Authentification currentAuthentification = ats.findById(currentUserId);
+        
+        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")){
+            btnAdd.setVisible(false);
+            btnDelete.setVisible(false);
+            btnUpdate.setVisible(false);
+            btnClear.setVisible(false);
+        }
 
     }
 }

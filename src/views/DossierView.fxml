@@ -123,6 +123,7 @@
       </Group>
       <TableView fx:id="mTable" editable="true" nodeOrientation="LEFT_TO_RIGHT" stylesheets="@../resources/css.css">
          <columns>
+            <TableColumn fx:id="IdColumn" prefWidth="52.0" text="ID" />
             <TableColumn fx:id="vendeurColumn" prefWidth="47.5" text="Vendeur" />
             <TableColumn fx:id="acquereurColumn" prefWidth="52.0" text="Acquereur" />
             <TableColumn fx:id="LebienColumn" prefWidth="48.5" text="Le bien" />
