@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,6 +36,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -153,7 +156,7 @@ public class LebienController implements Initializable {
     private TableColumn<LeBien, String> adresseColumn;
 
     @FXML
-    private TableColumn<LeBien, String> superficieColumn;
+    private TableColumn<LeBien, Double> superficieColumn;
 
     @FXML
     private TableColumn<LeBien, String> consistanceColumn;
@@ -190,7 +193,7 @@ public class LebienController implements Initializable {
 
     @FXML
     private TableColumn<LeBien, LocalDate> dateContractColumn;
-    
+
     @FXML
     private TextField search;
 
@@ -239,14 +242,14 @@ public class LebienController implements Initializable {
         dt2 = Date.from(instant2);
 
         bs.create(new LeBien(
-                new LeBienPK(dt2, 
+                new LeBienPK(dt2,
                         selectedVendeurID,
                         selectedAcquereurID),
                 tf.getText(),
                 ri.getText(),
                 rc.getText(),
                 adresse.getText(),
-                superficie.getText(),
+                Double.parseDouble(superficie.getText()),
                 consistance.getText(),
                 charge.getText(),
                 situationLocative.getText(),
@@ -287,14 +290,13 @@ public class LebienController implements Initializable {
 
             dt = Date.from(instant);
             dt2 = Date.from(instant2);
-            
-            
+
             LeBien b = new LeBien();
-            
+
             b.setAcquereur(as.findById(selectedAcquereurID));
             b.setVendeur(vs.findById(selectedVendeurID));
             b.setAdresse(adresse.getText());
-            b.setSuperficie(superficie.getText());
+            b.setSuperficie(Double.parseDouble(superficie.getText()));
             b.setConsistance(consistance.getText());
             b.setCharge(charge.getText());
             b.setSituationSyndic(situationSyndic.getText());
@@ -307,8 +309,7 @@ public class LebienController implements Initializable {
             b.setRc(rc.getText());
             b.setRi(ri.getText());
             b.setId(new LeBienPK(dt2, selectedVendeurID, selectedAcquereurID));
-            
-            
+
             bs.delete(bs.findByCustomId(index));
             bs.create(b);
             init();
@@ -318,7 +319,7 @@ public class LebienController implements Initializable {
 
     //init function
     private void init() {
-        
+
         acquereurs.clear();
         vendeurs.clear();
         lesbiens.clear();
@@ -387,34 +388,77 @@ public class LebienController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         init();
         mTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        avance.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    avance.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+            
+        prixCession.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    prixCession.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+            
+        superficie.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    superficie.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         
+        LocalDate maxDate = LocalDate.now();
+        dateContract.setDayCellFactory(d ->
+           new DateCell() {
+               @Override public void updateItem(LocalDate item, boolean empty) {
+                   super.updateItem(item, empty);
+                   setDisable(item.isAfter(maxDate));
+               }});
+        
+        delaiCompromis.setDayCellFactory(d ->
+           new DateCell() {
+               @Override public void updateItem(LocalDate item, boolean empty) {
+                   super.updateItem(item, empty);
+                   setDisable(item.isAfter(maxDate));
+               }});
+            
+
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             fetchedLeBien.clear();
-            
-            if(!newValue.equals("")){
-                for(LeBien a : bs.findAll()) {
-                    if(a.toString().contains(newValue)) {
+
+            if (!newValue.equals("")) {
+                for (LeBien a : bs.findAll()) {
+                    if (a.toString().contains(newValue)) {
                         fetchedLeBien.add(a);
                     }
                 }
                 mTable.setItems(fetchedLeBien);
-            }else{
+            } else {
                 init();
             }
         });
-        
+
         vendeur.setOnAction(e -> {
             try {
                 selectedVendeurID = vendeur.getSelectionModel().getSelectedItem().getId();
             } catch (Exception ex) {
             }
         });
-        
+
         acquereur.setOnAction(e -> {
             try {
                 selectedAcquereurID = acquereur.getSelectionModel().getSelectedItem().getId();
             } catch (Exception ex) {
-                
+
             }
         });
 
@@ -427,19 +471,19 @@ public class LebienController implements Initializable {
 
                 vendeur.getSelectionModel().select(item.getVendeur());
                 acquereur.getSelectionModel().select(item.getAcquereur());
-                
+
                 selectedVendeurID = item.getVendeur().getId();
                 selectedAcquereurID = item.getAcquereur().getId();
-                
+
                 adresse.setText(item.getAdresse());
-                superficie.setText(item.getSuperficie());
+                superficie.setText(item.getSuperficie().toString());
                 consistance.setText(item.getConsistance());
                 charge.setText(item.getCharge());
                 situationLocative.setText(item.getSituationLocative());
                 situationSyndic.setText(item.getSituationSyndic());
                 prixCession.setText(item.getPrixCession().toString());
                 avance.setText(item.getAvance().toString());
-                charges.setText(item.getChargesEtTaxes());
+                charges.setText(item.getChargesEtTaxes().toString());
 
                 Date dts = item.getDelaiDuCompromisDeVente();
                 Date dts2 = item.getId().getDateContrat();
@@ -457,13 +501,13 @@ public class LebienController implements Initializable {
 
             }
         });
-        
+
         Preferences userPreferences = Preferences.userRoot();
         int currentUserId = userPreferences.getInt("currentUserId", 0);
 
         Authentification currentAuthentification = ats.findById(currentUserId);
-        
-        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")){
+
+        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")) {
             btnAdd.setVisible(false);
             btnDelete.setVisible(false);
             btnUpdate.setVisible(false);

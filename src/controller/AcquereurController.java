@@ -22,8 +22,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +36,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -138,7 +144,7 @@ public class AcquereurController implements Initializable {
 
     @FXML
     private JFXButton btnUpdate;
-    
+
     @FXML
     private JFXButton btnClear;
 
@@ -215,25 +221,26 @@ public class AcquereurController implements Initializable {
         } else if (typeP_physique.isSelected()) {
             typePersonne = typeP_physique.getText();
         }
-
-        as.create(new Acquereur(
-                nom.getText(),
-                prenom.getText(),
-                ben.getText(),
-                dt,
-                cin.getText(),
-                tel.getText(),
-                fonction.getText(),
-                adresse.getText(),
-                situationFamiliale,
-                regimeMariage.getText(),
-                lieuMariage.getText(),
-                conjoint.getText(),
-                adresseCourriel.getText(),
-                email.getText(),
-                typePersonne));
-        init();
-        clearFields();
+        if (validateEmail()) {
+            as.create(new Acquereur(
+                    nom.getText(),
+                    prenom.getText(),
+                    ben.getText(),
+                    dt,
+                    cin.getText(),
+                    tel.getText(),
+                    fonction.getText(),
+                    adresse.getText(),
+                    situationFamiliale,
+                    regimeMariage.getText(),
+                    lieuMariage.getText(),
+                    conjoint.getText(),
+                    adresseCourriel.getText(),
+                    email.getText(),
+                    typePersonne));
+            init();
+            clearFields();
+        }
     }
 
     @FXML
@@ -315,10 +322,11 @@ public class AcquereurController implements Initializable {
             v.setAdresseCourriel(adresseCourriel.getText());
             v.setEmail(email.getText());
             v.setTypePersonne(typePersonne);
-
-            as.update(v);
-            init();
-            clearFields();
+            if (validateEmail()) {
+                as.update(v);
+                init();
+                clearFields();
+            }
         }
     }
 
@@ -358,7 +366,7 @@ public class AcquereurController implements Initializable {
         mTable.setItems(acquereurs);
 
     }
-    
+
     private void initBySearch(List<Acquereur> list) {
         acquereurs.clear();
 
@@ -384,6 +392,22 @@ public class AcquereurController implements Initializable {
 
         mTable.setItems(acquereurs);
 
+    }
+
+    //email validation
+    private boolean validateEmail() {
+        Pattern p = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+        Matcher m = p.matcher(email.getText());
+        if (m.find() && m.group().equals(email.getText())) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Validation email");
+            alert.setHeaderText(null);
+            alert.setContentText("veuillez entrer un email valide");
+            alert.showAndWait();
+            return false;
+        }
     }
 
     //clear Fields function
@@ -415,17 +439,64 @@ public class AcquereurController implements Initializable {
         init();
         mTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        tel.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tel.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+
+        });
+
+        nom.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\sa-zA-Z*")) {
+                    nom.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+                }
+            }
+        });
+
+        prenom.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\sa-zA-Z*")) {
+                    prenom.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+                }
+            }
+        });
+
+        ben.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\sa-zA-Z*")) {
+                    ben.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+                }
+            }
+        });
+
+        LocalDate maxDate = LocalDate.now();
+        dateNaissance.setDayCellFactory(d
+                -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                setDisable(item.isAfter(maxDate));
+            }
+        });
+
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             fetchedAcquerreur.clear();
-            
-            if(!newValue.equals("")){
-                for(Acquereur a : as.findAll()) {
-                    if(a.toString().contains(newValue)) {
+
+            if (!newValue.equals("")) {
+                for (Acquereur a : as.findAll()) {
+                    if (a.toString().contains(newValue)) {
                         fetchedAcquerreur.add(a);
                     }
                 }
                 mTable.setItems(fetchedAcquerreur);
-            }else{
+            } else {
                 init();
             }
         });
@@ -474,13 +545,13 @@ public class AcquereurController implements Initializable {
                 email.setText(item.getEmail());
             }
         });
-        
+
         Preferences userPreferences = Preferences.userRoot();
         int currentUserId = userPreferences.getInt("currentUserId", 0);
 
         Authentification currentAuthentification = ats.findById(currentUserId);
-        
-        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")){
+
+        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")) {
             btnAdd.setVisible(false);
             btnDelete.setVisible(false);
             btnUpdate.setVisible(false);

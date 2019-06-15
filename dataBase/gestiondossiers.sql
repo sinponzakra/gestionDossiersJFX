@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 20 mai 2019 à 21:43
+-- Généré le :  sam. 15 juin 2019 à 17:50
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -54,8 +54,18 @@ CREATE TABLE IF NOT EXISTS `authentification` (
   `password` varchar(255) DEFAULT NULL,
   `profile` varchar(255) DEFAULT NULL,
   `user` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `authentification`
+--
+
+INSERT INTO `authentification` (`id`, `password`, `profile`, `user`, `email`) VALUES
+(1, '21232f297a57a5a743894a0e4a801fc3', 'admin', 'admin', 'admin@gmail.com'),
+(2, 'ee11cbb19052e40b07aac0ca060c23ee', 'user', 'user', 'user@gmail.com'),
+(6, '81dc9bdb52d04dc20036dbd8313ed055', 'user', 'hamza', 'oussamaabourial97@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -84,8 +94,8 @@ CREATE TABLE IF NOT EXISTS `dossier` (
 --
 
 INSERT INTO `dossier` (`id`, `date`, `acquereur_id`, `lebien_acquereurId`, `lebien_dateContrat`, `lebien_vendeurId`, `vendeur_id`, `etat`) VALUES
-(1, '2019-05-14', 1, 1, '2019-05-31', 5, 4, 'Active'),
-(2, '2019-05-10', 1, 1, '2019-05-24', 2, 5, 'Inactive');
+(1, '2019-05-14', 1, 1, '2019-05-31', 5, 4, 'Inactive'),
+(2, '2019-05-22', 1, 1, '2019-05-24', 2, 5, 'Active');
 
 -- --------------------------------------------------------
 
@@ -120,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `lebien` (
   `ri` varchar(255) DEFAULT NULL,
   `situationLocative` varchar(255) DEFAULT NULL,
   `situationSyndic` varchar(255) DEFAULT NULL,
-  `superficie` varchar(255) DEFAULT NULL,
+  `superficie` double DEFAULT NULL,
   `chargesEtTaxes` varchar(255) DEFAULT NULL,
   `tf` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`acquereurId`,`dateContrat`,`vendeurId`),
@@ -132,8 +142,8 @@ CREATE TABLE IF NOT EXISTS `lebien` (
 --
 
 INSERT INTO `lebien` (`acquereurId`, `dateContrat`, `vendeurId`, `adresse`, `avance`, `charge`, `consistance`, `delaiDuCompromisDeVente`, `prixCession`, `rc`, `ri`, `situationLocative`, `situationSyndic`, `superficie`, `chargesEtTaxes`, `tf`) VALUES
-(1, '2019-05-24', 2, 'chi  blasa', 250000, 'maerftch', 'maerftch', '2019-05-23', 500000, 'non', 'nono', 'oui', 'non', '4500M²', 'fabor', 'non'),
-(1, '2019-05-31', 5, 'test ', 50, 'k,k,', 'k,k,', '2019-05-22', 50, 'ok', 'ok', 'k,k,', 'k,k,', '2121', '50', 'ok');
+(1, '2019-05-24', 2, 'chi  blasa', 250000, '2121', 'maerftch', '2019-05-23', 500000, '9797', '9797', 'oui', 'non', 4500, '0', '2121'),
+(1, '2019-05-31', 5, 'test ', 50, '2121', 'k,k,', '2019-05-22', 50, '9797', '9797', 'k,k,', 'k,k,', 2121, '50', '2121');
 
 -- --------------------------------------------------------
 
@@ -161,18 +171,19 @@ CREATE TABLE IF NOT EXISTS `personne` (
   `typePersonne` varchar(255) DEFAULT NULL,
   `lieuMariage` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `personne`
 --
 
 INSERT INTO `personne` (`PERSONNE_TYPE`, `id`, `adresse`, `adresseCourriel`, `associe`, `ben`, `cin`, `dateNaissance`, `email`, `fonction`, `nom`, `prenom`, `regimeMariage`, `situationFamiliale`, `telephone`, `typePersonne`, `lieuMariage`) VALUES
-('Acquereur', 1, 'Azli sud 2 n347 jhjh kjkj khkjh', 'Azli sud 2 N347', 'non', 'Lahcen', 'EE851405', '1997-05-09', 'oussamaabourial97@gmail.com', 'Etudiant', 'Abourial', 'Oussama', 'non', 'Celibataire', '0643277039', 'Personne Physique', 'non'),
+('Acquereur', 1, 'Azli sud 2 n347 jhjh kjkj khkjh', 'Azli sud 2 N347', 'non', 'Llaa', 'EE851405', '1997-05-09', 'oussamaabourial97@gmail.com', 'Etudiant', 'Abourial', 'Oussama', 'non', 'Celibataire', '0643277039', 'Personne Physique', 'non'),
 ('Vendeur', 2, 'Sidi Bouathman rak fahm', 'tma nit ', 'non', 'Mohammed', 'EA196732', '1997-01-13', 'pandaeca@gmail.com', 'Etudiant', 'Ouaqasse', 'Mounsif', 'non', 'Celibataire', '06666666', 'Personne Physique', 'non'),
 ('Acquereur', 3, 'Azli sud 2 n347 jhjh kjkj khkjh', 'Azli sud 2 N347', 'non', 'Lahcen', 'EE851405', '1997-05-09', 'oussamaabourial97@gmail.com', 'Etudiant', 'wahya', 'test', 'non', 'Celibataire', '0643277039', 'Personne Physique', 'non'),
 ('Vendeur', 4, 'Sidi Bouathman rak fahm', 'tma nit ', 'non', 'said', 'EA196732', '1997-01-13', 'pandaeca@gmail.com', 'Etudiant', 'Ouaqasse', 'Mounsif', 'non', 'Celibataire', '06666666', 'Personne Physique', 'non'),
-('Vendeur', 5, 'Sidi Bouathman rak fahm', 'tma nit ', 'non', 'said', 'EA196732', '1997-01-13', 'pandaeca@gmail.com', 'Etudiant', 'Ewala', 'Mounsif', 'non', 'Celibataire', '06666666', 'Personne Physique', 'non');
+('Vendeur', 5, 'Sidi Bouathman rak fahm', 'tma nit ', 'non', 'said', 'EA196732', '1997-01-13', 'pandaeca@gmail.com', 'Etudiant', 'Ewala', 'Mounsif', 'non', 'Celibataire', '06666666', 'Personne Physique', 'non'),
+('Vendeur', 6, 'k,k,k,k,', 'k,k,k,', 'k,k,k', 'ikok', 'k,k,', '2019-06-14', 'kk@okok.okok', 'jujjnjn', 'okok', 'okok', 'k,k,', 'Marié(e)', '0606060', 'Personne Physique', ', , k,k,');
 
 -- --------------------------------------------------------
 
@@ -193,7 +204,8 @@ CREATE TABLE IF NOT EXISTS `vendeur` (
 INSERT INTO `vendeur` (`id`) VALUES
 (2),
 (4),
-(5);
+(5),
+(6);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

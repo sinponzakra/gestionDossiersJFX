@@ -23,6 +23,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,6 +39,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableRow;
@@ -47,6 +52,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Callback;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import service.AcquereurService;
 import service.AuthentificationService;
 import service.DossierService;
@@ -125,6 +139,9 @@ public class DossierController implements Initializable {
     
     @FXML
     private TableColumn<Dossier, Integer> IdColumn;
+    
+    @FXML
+    private TableColumn<Dossier, Void> imprimer;
 
     @FXML
     private TextField search;
@@ -231,6 +248,70 @@ public class DossierController implements Initializable {
         dateContractColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         EtatColumn.setCellValueFactory(new PropertyValueFactory<>("etat"));
         IdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        imprimer.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+        
+        
+        Callback<TableColumn<Dossier, Void>, TableCell<Dossier, Void>> cellFactory = new Callback<TableColumn<Dossier, Void>, TableCell<Dossier, Void>>() {
+            @Override
+            public TableCell<Dossier, Void> call(final TableColumn<Dossier, Void> param) {
+                final TableCell<Dossier, Void> cell = new TableCell<Dossier, Void>() {
+
+                    private final Button btn = new Button("Imprimer");
+
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            try {
+                                Dossier data = getTableView().getItems().get(getIndex());
+                                
+                                JasperReport jr = JasperCompileManager.compileReport("src/reports/report.jrxml");
+                                Map<String, Object> parameters = new HashMap<String, Object>();
+                                parameters.put("typePersonne", data.getAcquereur().getTypePersonne());
+                                parameters.put("nomPrenom", data.getAcquereur().toString());
+                                parameters.put("adresse", data.getAcquereur().getAdresse());
+                                parameters.put("nationalite", "Marocain");
+                                parameters.put("cin", data.getAcquereur().getCin());
+                                parameters.put("dateNaissance", data.getAcquereur().getDateNaissance().toString());
+                                parameters.put("associe", data.getAcquereur().getAssocie());
+                                parameters.put("adresseCourriel", data.getAcquereur().getAdresseCourriel());
+                                parameters.put("email", data.getAcquereur().getEmail());
+                                parameters.put("tel", data.getAcquereur().getTelephone());
+                                parameters.put("tf", data.getLebien().getTf()+" / "+data.getLebien().getRi()+" / "+data.getLebien().getRc());
+                                parameters.put("fonction", data.getAcquereur().getFonction());
+                                parameters.put("adresseBien",data.getLebien().getAdresse());
+                                parameters.put("superficie", data.getLebien().getSuperficie().toString()+" M²");
+                                parameters.put("chargesEtTaxes", data.getLebien().getChargesEtTaxes().toString());
+                                parameters.put("sLocative", data.getLebien().getSituationLocative());
+                                parameters.put("prix", data.getLebien().getPrixCession().toString()+" DH");
+                                parameters.put("sSyndic",data.getLebien().getSituationSyndic());
+                                parameters.put("regimeMatimonial", data.getAcquereur().getRegimeMariage());
+                                parameters.put("sFamilial", data.getAcquereur().getSituationFamiliale());
+                                parameters.put("consistances", data.getLebien().getConsistance());
+                                
+                                JRDataSource dataSource = new JREmptyDataSource();
+                                JasperPrint jp = JasperFillManager.fillReport(jr, parameters, dataSource);
+                                JasperViewer.viewReport(jp, false);
+                            } catch (JRException ex) {
+                                Logger.getLogger(DossierController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        imprimer.setCellFactory(cellFactory);
+        
         
 
         if (vs.findAll() != null) {
@@ -262,6 +343,14 @@ public class DossierController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         init();
         mTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        
+        LocalDate maxDate = LocalDate.now();
+        dateContract.setDayCellFactory(d ->
+           new DateCell() {
+               @Override public void updateItem(LocalDate item, boolean empty) {
+                   super.updateItem(item, empty);
+                   setDisable(item.isAfter(maxDate));
+               }});
 
         mTable.setRowFactory(tv -> new TableRow<Dossier>() {
             @Override

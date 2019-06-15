@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,6 +32,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -50,7 +53,7 @@ public class AuthentificationController implements Initializable {
 
     AuthentificationService ats = new AuthentificationService();
     Util util = new Util();
-    
+
     private static int index;
 
     ObservableList<Authentification> accounts = FXCollections.observableArrayList();
@@ -133,9 +136,26 @@ public class AuthentificationController implements Initializable {
 
     @FXML
     void saveAction(ActionEvent event) {
-        ats.create(new Authentification(nomUtilisateur.getText(), util.MD5(mdp.getText()), profile.getSelectionModel().getSelectedItem(), email.getText()));
-        init();
+        if (validateEmail()) {
+            ats.create(new Authentification(nomUtilisateur.getText(), util.MD5(mdp.getText()), profile.getSelectionModel().getSelectedItem(), email.getText()));
+            init();
+        }
+    }
 
+    //email validation
+    private boolean validateEmail() {
+        Pattern p = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+        Matcher m = p.matcher(email.getText());
+        if (m.find() && m.group().equals(email.getText())) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Validation email");
+            alert.setHeaderText(null);
+            alert.setContentText("veuillez entrer un email valide");
+            alert.showAndWait();
+            return false;
+        }
     }
 
     @FXML
@@ -157,16 +177,16 @@ public class AuthentificationController implements Initializable {
 
         if (controller.getCurrentState()) {
 
-         Authentification a = ats.findById(index);
+            Authentification a = ats.findById(index);
             a.setUser(nomUtilisateur.getText());
             a.setEmail(email.getText());
             a.setPassword(util.MD5(mdp.getText()));
             a.setProfile(profile.getSelectionModel().getSelectedItem());
-
-            ats.update(a);
-            init();
+            if (validateEmail()) {
+                ats.update(a);
+                init();
+            }
         }
-
 
     }
 
@@ -199,14 +219,14 @@ public class AuthentificationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         init();
         profile.getSelectionModel().select(1);
-        
+
         mTable.setOnMousePressed(e -> {
             if (mTable.getSelectionModel().getSelectedCells().get(0) != null) {
                 TablePosition pos = (TablePosition) mTable.getSelectionModel().getSelectedCells().get(0);
                 int row = pos.getRow();
                 Authentification item = mTable.getItems().get(row);
                 index = item.getId();
-                
+
                 profile.getSelectionModel().select(item.getProfile());
                 nomUtilisateur.setText(item.getUser());
                 email.setText(item.getEmail());

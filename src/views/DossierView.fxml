@@ -38,6 +38,7 @@
                      <children>
                         <JFXComboBox fx:id="vendeur" editable="true" focusColor="#ee3333" labelFloat="true" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="12.0" prefWidth="226.0" promptText="Vendeur" style="-fx-font-size: 15; -fx-font-weight: bold;" GridPane.columnIndex="2" />
                         <JFXComboBox fx:id="acquereur" editable="true" focusColor="#ee3333" labelFloat="true" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="12.0" prefWidth="226.0" promptText="Acquereur" style="-fx-font-size: 15; -fx-font-weight: bold;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <JFXComboBox fx:id="lebien" editable="true" focusColor="#ee3333" labelFloat="true" layoutX="15.0" layoutY="128.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="12.0" prefWidth="226.0" promptText="Le bien" style="-fx-font-size: 15; -fx-font-weight: bold;" GridPane.columnIndex="1" />
                         <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <Label contentDisplay="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="3.0" prefWidth="239.0" text="Date">
@@ -51,7 +52,6 @@
                               <Insets bottom="15.0" />
                            </padding>
                         </VBox>
-                        <JFXComboBox fx:id="lebien" editable="true" focusColor="#ee3333" labelFloat="true" layoutX="15.0" layoutY="128.0" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="12.0" prefWidth="226.0" promptText="Le bien" style="-fx-font-size: 15; -fx-font-weight: bold;" GridPane.columnIndex="1" />
                         <JFXToggleButton fx:id="etat" maxWidth="1.7976931348623157E308" selected="true" text="Active" unToggleColor="#e11414" unToggleLineColor="#f51d1d8c" GridPane.rowIndex="1" />
                      </children>
                      <padding>
@@ -129,6 +129,7 @@
             <TableColumn fx:id="LebienColumn" prefWidth="48.5" text="Le bien" />
             <TableColumn fx:id="dateContractColumn" minWidth="60.0" prefWidth="240.0" text="Date Dossier" />
             <TableColumn fx:id="EtatColumn" minWidth="60.0" prefWidth="360.0" text="Etat" />
+            <TableColumn fx:id="imprimer" prefWidth="171.0" text="Imprimer" />
          </columns>
          <columnResizePolicy>
          </columnResizePolicy>

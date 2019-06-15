@@ -40,7 +40,14 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
+                        <JFXComboBox fx:id="vendeur" editable="true" focusColor="#ee3333" labelFloat="true" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="12.0" prefWidth="226.0" promptText="Vendeur" style="-fx-font-size: 15; -fx-font-weight: bold;" GridPane.columnIndex="3" />
+                        <JFXComboBox fx:id="acquereur" editable="true" focusColor="#ee3333" labelFloat="true" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="12.0" prefWidth="226.0" promptText="Acquereur" style="-fx-font-size: 15; -fx-font-weight: bold;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                         <JFXTextField fx:id="adresse" focusColor="#ee3333" labelFloat="true" nodeOrientation="LEFT_TO_RIGHT" prefWidth="232.0" promptText="Adresse" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="superficie" focusColor="#ee3333" labelFloat="true" nodeOrientation="LEFT_TO_RIGHT" prefWidth="232.0" promptText="Superficie" GridPane.columnIndex="3" GridPane.rowIndex="3">
                            <font>
                               <Font name="Arial Bold" size="16.0" />
                            </font>
@@ -65,6 +72,11 @@
                               <Font name="Arial Bold" size="16.0" />
                            </font>
                         </JFXTextField>
+                        <JFXTextField fx:id="prixCession" focusColor="#ee3333" labelFloat="true" nodeOrientation="LEFT_TO_RIGHT" prefWidth="232.0" promptText="Prix de cession" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </JFXTextField>
                         <JFXTextField fx:id="avance" focusColor="#ee3333" labelFloat="true" nodeOrientation="LEFT_TO_RIGHT" prefWidth="232.0" promptText="Avance" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Arial Bold" size="16.0" />
@@ -75,6 +87,16 @@
                               <Font name="Arial Bold" size="16.0" />
                            </font>
                         </JFXTextField>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <children>
+                              <Label contentDisplay="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="3.0" prefWidth="239.0" text="Délai du compromis de vente">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <JFXDatePicker fx:id="delaiCompromis" defaultColor="#e13636" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="239.0" />
+                           </children>
+                        </VBox>
                         <JFXTextField fx:id="tf" focusColor="#ee3333" labelFloat="true" nodeOrientation="LEFT_TO_RIGHT" prefWidth="232.0" promptText="TF">
                            <font>
                               <Font name="Arial Bold" size="16.0" />
@@ -90,28 +112,6 @@
                               <Font name="Arial Bold" size="16.0" />
                            </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="superficie" focusColor="#ee3333" labelFloat="true" nodeOrientation="LEFT_TO_RIGHT" prefWidth="232.0" promptText="Superficie" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="Arial Bold" size="16.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXTextField fx:id="prixCession" focusColor="#ee3333" labelFloat="true" nodeOrientation="LEFT_TO_RIGHT" prefWidth="232.0" promptText="Prix de cession" GridPane.columnIndex="1">
-                           <font>
-                              <Font name="Arial Bold" size="16.0" />
-                           </font>
-                        </JFXTextField>
-                        <JFXComboBox fx:id="vendeur" editable="true" focusColor="#ee3333" labelFloat="true" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="12.0" prefWidth="226.0" promptText="Vendeur" style="-fx-font-size: 15; -fx-font-weight: bold;" GridPane.columnIndex="3" />
-                        <JFXComboBox fx:id="acquereur" editable="true" focusColor="#ee3333" labelFloat="true" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="12.0" prefWidth="226.0" promptText="Acquereur" style="-fx-font-size: 15; -fx-font-weight: bold;" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
-                           <children>
-                              <Label contentDisplay="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="3.0" prefWidth="239.0" text="Délai du compromis de vente">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <JFXDatePicker fx:id="delaiCompromis" defaultColor="#e13636" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="0.0" prefWidth="239.0" />
-                           </children>
-                        </VBox>
                         <VBox GridPane.rowIndex="3">
                            <children>
                               <Label contentDisplay="CENTER" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="3.0" prefWidth="239.0" text="Date du contract">

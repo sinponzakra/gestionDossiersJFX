@@ -22,6 +22,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +35,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
@@ -137,7 +143,7 @@ public class VendeurController implements Initializable {
 
     @FXML
     private JFXButton btnUpdate;
-    
+
     @FXML
     private JFXButton btnClear;
 
@@ -188,7 +194,7 @@ public class VendeurController implements Initializable {
 
     @FXML
     private TableColumn<Vendeur, String> typePersonneColumn;
-    
+
     @FXML
     private TextField search;
 
@@ -216,24 +222,27 @@ public class VendeurController implements Initializable {
             typePersonne = typeP_physique.getText();
         }
 
-        vs.create(new Vendeur(
-                nom.getText(),
-                prenom.getText(),
-                ben.getText(),
-                dt,
-                cin.getText(),
-                tel.getText(),
-                fonction.getText(),
-                adresse.getText(),
-                situationFamiliale,
-                regimeMariage.getText(),
-                lieuMariage.getText(),
-                conjoint.getText(),
-                adresseCourriel.getText(),
-                email.getText(),
-                typePersonne));
-        init();
-        clearFields();
+        if (validateEmail()) {
+
+            vs.create(new Vendeur(
+                    nom.getText(),
+                    prenom.getText(),
+                    ben.getText(),
+                    dt,
+                    cin.getText(),
+                    tel.getText(),
+                    fonction.getText(),
+                    adresse.getText(),
+                    situationFamiliale,
+                    regimeMariage.getText(),
+                    lieuMariage.getText(),
+                    conjoint.getText(),
+                    adresseCourriel.getText(),
+                    email.getText(),
+                    typePersonne));
+            init();
+            clearFields();
+        }
     }
 
     @FXML
@@ -315,10 +324,11 @@ public class VendeurController implements Initializable {
             v.setAdresseCourriel(adresseCourriel.getText());
             v.setEmail(email.getText());
             v.setTypePersonne(typePersonne);
-
-            vs.update(v);
-            init();
-            clearFields();
+            if (validateEmail()) {
+                vs.update(v);
+                init();
+                clearFields();
+            }
         }
     }
 
@@ -359,6 +369,21 @@ public class VendeurController implements Initializable {
 
     }
 
+    private boolean validateEmail() {
+        Pattern p = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
+        Matcher m = p.matcher(email.getText());
+        if (m.find() && m.group().equals(email.getText())) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Validation email");
+            alert.setHeaderText(null);
+            alert.setContentText("veuillez entrer un email valide");
+            alert.showAndWait();
+            return false;
+        }
+    }
+
     //clear Fields function
     private void clearFields() {
         nom.clear();
@@ -387,19 +412,64 @@ public class VendeurController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         init();
         mTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        
-        
+
+        tel.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    tel.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        nom.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\sa-zA-Z*")) {
+                    nom.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+                }
+            }
+        });
+
+        prenom.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\sa-zA-Z*")) {
+                    prenom.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+                }
+            }
+        });
+
+        ben.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\sa-zA-Z*")) {
+                    ben.setText(newValue.replaceAll("[^\\sa-zA-Z]", ""));
+                }
+            }
+        });
+
+        LocalDate maxDate = LocalDate.now();
+        dateNaissance.setDayCellFactory(d
+                -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                setDisable(item.isAfter(maxDate));
+            }
+        });
+
         search.textProperty().addListener((observable, oldValue, newValue) -> {
             fetchedVendeur.clear();
-            
-            if(!newValue.equals("")){
-                for(Vendeur a : vs.findAll()) {
-                    if(a.toString().contains(newValue)) {
+
+            if (!newValue.equals("")) {
+                for (Vendeur a : vs.findAll()) {
+                    if (a.toString().contains(newValue)) {
                         fetchedVendeur.add(a);
                     }
                 }
                 mTable.setItems(fetchedVendeur);
-            }else{
+            } else {
                 init();
             }
         });
@@ -448,13 +518,13 @@ public class VendeurController implements Initializable {
                 email.setText(item.getEmail());
             }
         });
-        
+
         Preferences userPreferences = Preferences.userRoot();
         int currentUserId = userPreferences.getInt("currentUserId", 0);
 
         Authentification currentAuthentification = ats.findById(currentUserId);
-        
-        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")){
+
+        if (!currentAuthentification.getProfile().equalsIgnoreCase("admin")) {
             btnAdd.setVisible(false);
             btnDelete.setVisible(false);
             btnUpdate.setVisible(false);

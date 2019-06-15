@@ -27,7 +27,7 @@ public class LeBien {
     private String ri;
     private String rc;
     private String adresse;
-    private String superficie;
+    private Double superficie;
     private String consistance;
     private String charge;
     private String situationLocative;
@@ -47,7 +47,7 @@ public class LeBien {
     public LeBien() {
     }
 
-    public LeBien(LeBienPK id, String tf, String ri, String rc, String adresse, String superficie, String consistance, String charge, String situationLocative, Double prixCession, String situationSyndic, String chargesEtTaxes, Double avance, Date delaiDuCompromisDeVente, Vendeur vendeur, Acquereur acquereur) {
+    public LeBien(LeBienPK id, String tf, String ri, String rc, String adresse, Double superficie, String consistance, String charge, String situationLocative, Double prixCession, String situationSyndic, String chargesEtTaxes, Double avance, Date delaiDuCompromisDeVente, Vendeur vendeur, Acquereur acquereur) {
         this.id = id;
         this.tf = tf;
         this.ri = ri;
@@ -106,11 +106,11 @@ public class LeBien {
         this.adresse = adresse;
     }
 
-    public String getSuperficie() {
+    public Double getSuperficie() {
         return superficie;
     }
 
-    public void setSuperficie(String superficie) {
+    public void setSuperficie(Double superficie) {
         this.superficie = superficie;
     }
 
