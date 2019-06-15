@@ -263,8 +263,9 @@ public class DossierController implements Initializable {
                             try {
                                 Dossier data = getTableView().getItems().get(getIndex());
                                 
+                                //report aquerreur
                                 JasperReport jr = JasperCompileManager.compileReport("src/reports/report.jrxml");
-                                Map<String, Object> parameters = new HashMap<String, Object>();
+                                Map<String, Object> parameters = new HashMap<>();
                                 parameters.put("typePersonne", data.getAcquereur().getTypePersonne());
                                 parameters.put("nomPrenom", data.getAcquereur().toString());
                                 parameters.put("adresse", data.getAcquereur().getAdresse());
@@ -279,7 +280,7 @@ public class DossierController implements Initializable {
                                 parameters.put("fonction", data.getAcquereur().getFonction());
                                 parameters.put("adresseBien",data.getLebien().getAdresse());
                                 parameters.put("superficie", data.getLebien().getSuperficie().toString()+" M²");
-                                parameters.put("chargesEtTaxes", data.getLebien().getChargesEtTaxes().toString());
+                                parameters.put("chargesEtTaxes", data.getLebien().getChargesEtTaxes());
                                 parameters.put("sLocative", data.getLebien().getSituationLocative());
                                 parameters.put("prix", data.getLebien().getPrixCession().toString()+" DH");
                                 parameters.put("sSyndic",data.getLebien().getSituationSyndic());
@@ -290,6 +291,40 @@ public class DossierController implements Initializable {
                                 JRDataSource dataSource = new JREmptyDataSource();
                                 JasperPrint jp = JasperFillManager.fillReport(jr, parameters, dataSource);
                                 JasperViewer.viewReport(jp, false);
+                                
+                                
+                                
+                                
+                                
+                                
+                                //report vendeur
+                                JasperReport jr2 = JasperCompileManager.compileReport("src/reports/report.jrxml");
+                                Map<String, Object> parameters2 = new HashMap<>();
+                                parameters2.put("typePersonne", data.getVendeur().getTypePersonne());
+                                parameters2.put("nomPrenom", data.getVendeur().toString());
+                                parameters2.put("adresse", data.getVendeur().getAdresse());
+                                parameters2.put("nationalite", "Marocain");
+                                parameters2.put("cin", data.getVendeur().getCin());
+                                parameters2.put("dateNaissance", data.getVendeur().getDateNaissance().toString());
+                                parameters2.put("associe", data.getVendeur().getAssocie());
+                                parameters2.put("adresseCourriel", data.getVendeur().getAdresseCourriel());
+                                parameters2.put("email", data.getVendeur().getEmail());
+                                parameters2.put("tel", data.getVendeur().getTelephone());
+                                parameters2.put("tf", data.getLebien().getTf()+" / "+data.getLebien().getRi()+" / "+data.getLebien().getRc());
+                                parameters2.put("fonction", data.getVendeur().getFonction());
+                                parameters2.put("adresseBien",data.getLebien().getAdresse());
+                                parameters2.put("superficie", data.getLebien().getSuperficie().toString()+" M²");
+                                parameters2.put("chargesEtTaxes", data.getLebien().getChargesEtTaxes());
+                                parameters2.put("sLocative", data.getLebien().getSituationLocative());
+                                parameters2.put("prix", data.getLebien().getPrixCession().toString()+" DH");
+                                parameters2.put("sSyndic",data.getLebien().getSituationSyndic());
+                                parameters2.put("regimeMatimonial", data.getVendeur().getRegimeMariage());
+                                parameters2.put("sFamilial", data.getVendeur().getSituationFamiliale());
+                                parameters2.put("consistances", data.getLebien().getConsistance());
+                                
+                                JRDataSource dataSource2 = new JREmptyDataSource();
+                                JasperPrint jp2 = JasperFillManager.fillReport(jr2, parameters2, dataSource2);
+                                JasperViewer.viewReport(jp2, false);
                             } catch (JRException ex) {
                                 Logger.getLogger(DossierController.class.getName()).log(Level.SEVERE, null, ex);
                             }
