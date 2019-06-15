@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8010fa4f-5347-4190-a2fe-6acaef642183">
+	<parameter name="typePersonne" class="java.lang.String"/>
+	<parameter name="qualiteSignature" class="java.lang.String"/>
+	<parameter name="nomPrenom" class="java.lang.String"/>
+	<parameter name="adresse" class="java.lang.String"/>
+	<parameter name="nationalite" class="java.lang.String"/>
+	<parameter name="cin" class="java.lang.String"/>
+	<parameter name="dateNaissance" class="java.lang.String"/>
+	<parameter name="associe" class="java.lang.String"/>
+	<parameter name="adresseCourriel" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="tel" class="java.lang.String"/>
+	<parameter name="tf" class="java.lang.String"/>
+	<parameter name="fonction" class="java.lang.String"/>
+	<parameter name="adresseBien" class="java.lang.String"/>
+	<parameter name="superficie" class="java.lang.String"/>
+	<parameter name="chargesEtTaxes" class="java.lang.String"/>
+	<parameter name="sLocative" class="java.lang.String"/>
+	<parameter name="prix" class="java.lang.String"/>
+	<parameter name="sSyndic" class="java.lang.String"/>
+	<parameter name="regimeMatimonial" class="java.lang.String"/>
+	<parameter name="sFamilial" class="java.lang.String"/>
+	<parameter name="consistances" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="150" y="30" width="250" height="30" uuid="6cfc4887-b387-4a76-bfcf-4076e559407e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[FICHE DE RENSEIGNEMENT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="727">
+			<staticText>
+				<reportElement x="0" y="30" width="180" height="20" uuid="dab7a764-add8-4bcd-bacc-1be60a8fe7f5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[TYPE PERSONNE                :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="86" width="180" height="18" uuid="0937a42e-d5d0-4149-843e-9da50cec8dc0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[ADRESSE                              :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="110" width="179" height="13" uuid="95fa2984-7293-4d5c-a256-6bb2d84a13e1"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[NATIONALITE                       :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="180" height="15" uuid="375586bf-64e2-4bdf-8149-33d045f4a9bd"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[CIN                                         :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="153" width="181" height="20" uuid="4304f76d-721e-44d1-b34c-5494423df300"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[DATE NAISSANCE                :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="182" width="180" height="13" uuid="28dc870d-e9df-4b47-a66a-71c2cc799ab7"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[CONJOINT (S)/ASSOCIE (S) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="203" width="179" height="17" uuid="5a3d5263-05d0-45fa-b537-1e88b0494ff0"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[ADRESSE COURRIEL          :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="228" width="179" height="18" uuid="075e3333-4697-4700-8e49-2f886d74c366"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[ADRESSE MAIL                    :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="253" width="180" height="19" uuid="5db795b4-21fc-4609-8aa0-02e51d65942e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[TEL / GSM                             :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="280" width="181" height="14" uuid="508058bb-a7c3-439f-9770-bb05a97c6dcf"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[TF / RI / RC                            :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="299" width="180" height="17" uuid="10e5cab2-3532-42d3-b277-e669980c1e37"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[FONCTION                            :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="323" width="179" height="21" uuid="5e4b2af0-97aa-409a-932c-bae587ff041c"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[ADRESSE DU BIEN              :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="351" width="179" height="22" uuid="6c9a6acd-fd9a-4c7f-a4ac-8f5cbf1c2ab2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[SUPERFICIE                         :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="380" width="180" height="14" uuid="eb14b60b-2bb5-4d9d-8811-22f049d2ba00"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[CHARGES ET TAXES           :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="401" width="181" height="19" uuid="00b1965b-6140-4f55-b8d9-3a60c4bf5908"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[SITUATION LOCATIVES      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="427" width="180" height="22" uuid="e095a081-2bbd-451a-8237-19432daa110a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[PRIX DE CESSION               :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="456" width="179" height="16" uuid="48d357d4-fefc-436d-b5a9-6b893b68b478"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[SITUATION SYNDIC            :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="612" width="551" height="60" uuid="b8f07103-8bab-49e1-875c-1f61c4e14f81"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[        Je déclare sur l'honneur que ces informations sont vraies, et avoir signé ce document, en connaissance de cause, et je donne ainsi toute décharge utile et plein pouvoir au Notaire Maître OUADIA CHAKIR, aux fins de formalisation des demandes affaires que cela requiert auprès de tout organisme.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="5" y="676" width="100" height="21" uuid="3ce2594d-6746-4cdb-a070-41ca74703fce"/>
+				<text><![CDATA[Signature et date   :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="5" y="613" width="11" height="11" uuid="cd28baf6-32a2-4c56-9f07-9dec332c1c32"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="56" width="179" height="22" uuid="d4de48db-f120-40ae-ac38-5284e971e16f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[NOM, PRENOM                     :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="477" width="180" height="22" uuid="a6c13da2-672d-4621-93a0-3ceffdf7515a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[REGIME MATRIMONIAL      :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="504" width="180" height="22" uuid="b7df6ec7-4c7c-42cc-b982-7ddf1da26f8a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[SITUATION FAMILIALE        :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="534" width="180" height="22" uuid="6d3e0e22-4f3c-405b-b317-27301afef002"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[CONSISTANCES                  :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="30" width="402" height="20" uuid="d9b0be03-4670-4def-8445-cf64361ba8b5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{typePersonne}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="56" width="402" height="22" uuid="c1eb5a10-b490-4ed1-a9fb-b4865e7de370"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{nomPrenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="86" width="401" height="18" uuid="3b4cb99e-b5bd-4124-af06-e6b2765584f9"/>
+				<textFieldExpression><![CDATA[$P{adresse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="108" width="400" height="20" uuid="e88fe135-75a2-4c5c-b026-7c6efeb00ea9"/>
+				<textFieldExpression><![CDATA[$P{nationalite}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="130" width="400" height="15" uuid="ae6ccec6-017a-409a-b3cb-86b0d2f2fba9"/>
+				<textFieldExpression><![CDATA[$P{cin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="153" width="400" height="20" uuid="5dded47e-6e3c-494a-8749-8f55abb6f145"/>
+				<textFieldExpression><![CDATA[$P{dateNaissance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="182" width="400" height="15" uuid="753e1026-55b0-4abe-9142-d3c25b481aec"/>
+				<textFieldExpression><![CDATA[$P{associe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="205" width="400" height="16" uuid="765855a0-613d-4db7-bf5e-92ed75a59110"/>
+				<textFieldExpression><![CDATA[$P{adresseCourriel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="230" width="400" height="18" uuid="1c3e447b-8cf5-4ce0-a1fc-78c992de6e28"/>
+				<textFieldExpression><![CDATA[$P{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="256" width="400" height="19" uuid="beea5b6b-69d1-4ab6-9c10-7118b50784f7"/>
+				<textFieldExpression><![CDATA[$P{tel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="280" width="400" height="14" uuid="95379fef-339c-4721-8e72-56f9c9887743"/>
+				<textFieldExpression><![CDATA[$P{tf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="300" width="400" height="15" uuid="fa9d9604-ca27-4e96-a46b-5ef71d1b9e10"/>
+				<textFieldExpression><![CDATA[$P{fonction}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="327" width="400" height="20" uuid="f8059af5-247e-4820-96eb-9b2dc1fa53e9"/>
+				<textFieldExpression><![CDATA[$P{adresseBien}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="355" width="400" height="19" uuid="afc81388-985d-456e-9c15-3246f9f419bf"/>
+				<textFieldExpression><![CDATA[$P{superficie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="380" width="400" height="14" uuid="cab97845-2fd0-4b13-85d4-963fc277a22f"/>
+				<textFieldExpression><![CDATA[$P{chargesEtTaxes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="404" width="400" height="19" uuid="434fe078-937b-409c-8dcf-1594154d388e"/>
+				<textFieldExpression><![CDATA[$P{sLocative}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="433" width="400" height="15" uuid="390df09e-4ae7-41c3-a1fb-ed1815c3cabe"/>
+				<textFieldExpression><![CDATA[$P{prix}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="456" width="400" height="15" uuid="38dbaf86-e75f-4c76-b2e0-ec0aa8f1e883"/>
+				<textFieldExpression><![CDATA[$P{sSyndic}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="482" width="400" height="16" uuid="337cc91e-f1ab-4cab-ba6b-d9218d7e4804"/>
+				<textFieldExpression><![CDATA[$P{regimeMatimonial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="509" width="400" height="15" uuid="70bab8e2-8e8a-4841-ae07-f685bdbe5768"/>
+				<textFieldExpression><![CDATA[$P{sFamilial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="539" width="400" height="15" uuid="ee19c0cb-5513-4733-befa-add89975801f"/>
+				<textFieldExpression><![CDATA[$P{consistances}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>
